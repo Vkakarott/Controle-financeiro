@@ -1,24 +1,43 @@
+//Constates globais
+const tbody = document.querySelector('tbody');
+const descItem = document.getElementById('desc');
+const amount = document.getElementById('amount');
+const type = document.getElementById('type');
+const btnNew = document.getElementById('btnNew');
+const incomes = document.querySelector('.incomes');
+const expenses = document.querySelector('.expenses');
+const total = document.querySelector('.total');
+const menu = document.querySelectorAll('.mes');
+const divMes = document.querySelectorAll('.a');
+const btn = document.getElementById('btn-l');
+const menuLateral = document.querySelector('.lateral');
+const main = document.querySelector('main');
+const final = document.getElementById('endMes');
+const mesAtual = document.getElementById('end-');
+const listaOpcoes = document.querySelectorAll('.mes');
+const ulNav = document.getElementById('listaOpcoes');
+const link = document.querySelectorAll('.txt-link');
+let resumao = [];
+let items;
+
+//Carreagar dados do localStorage
+loadDataFromLocalStorage();
+
 function loadDataFromLocalStorage() {
     try {
-        const savedResumao = localStorage.getItem('resumao')
+        const savedResumao = localStorage.getItem('resumao');
         if (savedResumao) {
-            resumao = JSON.parse(savedResumao)
-            const lastMontData = resumao[resumao.length - 1]
+            resumao = JSON.parse(savedResumao);
+            const lastMontData = resumao[resumao.length - 1];
             if (lastMontData) {
-                const incomes = document.querySelector('.incomes');
-                const expenses = document.querySelector('.expenses');
-                const total = document.querySelector('.total');
                 incomes.textContent = lastMontData.ent;
                 expenses.textContent = lastMontData.sai;
                 total.textContent = lastMontData.tot;
             }
-        }else {
-            const incomes = document.querySelector('.incomes');
-            const expenses = document.querySelector('.expenses');
-            const total = document.querySelector('.total');
-            incomes.textContent = '0.00'
-            expenses.textContent = '0.00'
-            total.textContent = '0.00'
+        } else {
+            incomes.textContent = '0.00';
+            expenses.textContent = '0.00';
+            total.textContent = '0.00';
         }
 
         const saveBarraLateralData = localStorage.getItem('dadosBarraLateral');
@@ -26,61 +45,61 @@ function loadDataFromLocalStorage() {
             const dadosBarraLateral = JSON.parse(saveBarraLateralData);
             const listaOpcoes = document.querySelectorAll('.mes');
 
-            listaOpcoes.forEach(li => {
-                const dataValue = li.getAttribute('data-value');
+            listaOpcoes.forEach((li, index) => {
+                const dataValue = index;
                 const data = dadosBarraLateral.find(item => item.dataValue === dataValue);
 
+                console.log(data)
                 if (data) {
-                    li.querySelector('.exp').textContent = data.expValue
-                    li.querySelector('.inc').textContent = data.incValue
-                    li.querySelector('.tot').textContent = data.totValue
+                    li.querySelector('.exp').textContent = data.expValue;
+                    li.querySelector('.inc').textContent = data.incValue;
+                    li.querySelector('.tot').textContent = data.totValue;
                 }
             });
         }
     } catch (error) {
-        console,error('Erro ao carregar os dados do LocalStorage:', error);
+        console.error('Erro ao carregar os dados do localStorage:', error);
     }
 }
 
-const tbody = document.querySelector('tbody');
-const descItem = document.querySelector('#desc');
-const amount = document.querySelector('#amount');
-const type = document.querySelector('#type');
-const btnNew = document.querySelector('#btnNew');
-
-const incomes = document.querySelector('.incomes');
-const expenses = document.querySelector('.expenses');
-const total = document.querySelector('.total');
-
-let items;
-
-loadDataFromLocalStorage();
-
+//Adicionar função de click ao botão
 btnNew.onclick = () => {
+    //validação de dados
     if (descItem.value === "" || amount.value === "") {
         return alert('Preencha todos os campos!');
+    } else {
+        items.push({
+            desc: descItem.value,
+            amount: Math.abs(amount.value).toFixed(2),
+            type: type.value,
+        });
+
+        setItensBD();
+        loadItens();
+
+        descItem.value = '';
+        amount.value = '';
     }
-
-    items.push({
-        desc: descItem.value,
-        amount: Math.abs(amount.value).toFixed(2),
-        type: type.value,
-    });
-
-    setItensBD();
-
-    loadItens();
-
-    descItem.value = '';
-    amount.value = '';
-};
-
-function deleteItem(index) {
-    items.splice(index, 1)
-    setItensBD();
-    loadItens();
 }
 
+const getItensDB = () => JSON.parse(localStorage.getItem('db_items')) ?? [];
+const setItensBD = () => 
+localStorage.setItem('db_items', JSON.stringify(items));
+
+//função que carrega itens
+loadItens();
+
+function loadItens() {
+    items = getItensDB();
+    tbody.innerHTML = '';
+    items.forEach((item, index) => {
+        insertItem(item,index);
+    });
+
+    getTotals();
+}
+
+//função que adiciona itens a tabela
 function insertItem(item, index) {
     let tr = document.createElement('tr');
 
@@ -93,30 +112,21 @@ function insertItem(item, index) {
                 : '<i class="bi bi-database-fill-down"></i>'
         }</td>
         <td class="columnAction">
-        <button onclick="deleteItem(${index})" style="color: #ff696957;"><i class="bi bi-trash3"></i></button>
+            <button onclick="deleteItem(${index})" style="color: #ff696957;"><i class="bi bi-trash3"></i></button>
         </td>
     `;
 
     tbody.appendChild(tr);
 }
 
-function loadItens() {
-    items = getItensBD();
-    tbody.innerHTML = '';
-    items.forEach((item, index) => {
-        insertItem(item, index);
-    });
-
-    getTotals();
-}
-
+//função que caucula e distribui os totais em suas respectivas div's
 function getTotals() {
     try {
         const amountIncomes = items
             .filter((item) => item.type === 'Entrada')
             .map((transaction) => Number(transaction.amount));
 
-        const amountExepenses = items
+        const amountExpenses = items
             .filter((item) => item.type === 'Saída')
             .map((transaction) => Number(transaction.amount));
 
@@ -125,7 +135,7 @@ function getTotals() {
             .toFixed(2);
 
         const totalExpenses = Math.abs(
-            amountExepenses.reduce((acc, cur) => acc + cur, 0)
+            amountExpenses.reduce((acc, cur) => acc + cur, 0)
         ).toFixed(2);
 
         const totalItems = (totalIncomes - totalExpenses).toFixed(2);
@@ -134,68 +144,55 @@ function getTotals() {
         expenses.innerHTML = totalExpenses;
         total.innerHTML = totalItems;
     } catch (error) {
-        console.error('Erro ao caucular totais:', error);
+        console.error('Erro ao calcular totais:', error);
     }
 }
 
-const getItensBD = () => JSON.parse(localStorage.getItem('db_items')) ?? [];
-const setItensBD = () =>
-  localStorage.setItem('db_items', JSON.stringify(items));
+//função para deletar itens da tabela
+function deleteItem(index) {
+    items.splice(index, 1)
+    setItensBD();
+    loadItens();
+}
 
-loadItens();
-
-var menu = document.querySelectorAll('.mes');
+//função que adiciona estilo a barra lateral
+menu.forEach((item) => item.addEventListener('click', select));
 
 function select() {
     menu.forEach((item) => item.classList.remove('ativo'));
     this.classList.add('ativo');
 }
-menu.forEach((item) => item.addEventListener('click', select));
 
-var car = document.querySelectorAll('.a');
-var btn = document.querySelector('#btn-l');
-var men = document.querySelector('.lateral');
-var main = document.querySelector('main');
-var header = document.querySelector('header');
-btn.addEventListener('click', function(){
-    men.classList.toggle('expandir');
-    car.forEach((item) => item.classList.toggle('expan'));
-    document.body.classList.toggle('barra-fechada', !men.classList.contains('expandir'));
+//Adiciona evento de click no botão de expandir o menu lateral
+btn.addEventListener('click', function() {
+    menuLateral.classList.toggle('expandir');
+    divMes.forEach((item) => item.classList.toggle('expan'));
     btn.addEventListener('click', () => {
         menu.forEach((item) => item.classList.remove('ativo'));
-      });
+    });
 })
 
-
-const final = document.querySelector('#endMes');
-const mesAtual = document.querySelector('#end-');
-const listaOpcoes = document.querySelectorAll('.mes');
-var resumao = []
-
+//resetar o main apos finalizar o mes
 const resetMainData = () => {
-    const tbody = document.querySelector('tbody');
-    const incomes = document.querySelector('.incomes');
-    const expenses = document.querySelector('.expenses');
-    const total = document.querySelector('.total');
-
     incomes.textContent = '0.00'
     expenses.textContent = '0.00'
     total.textContent = '0.00'
 
-    tbody.innerHTML = ''
+    tbody.innerHTML = '';
 
-    resumao = []
+    resumao = [];
 
     localStorage.removeItem('resumao');
-    localStorage.removeItem('db_items')
+    localStorage.removeItem('db_items');
 }
 
+//adiciona função ao clicar em finalizar mes
 final.onclick = () => {
     const valorSel = mesAtual.value;
 
-    if (valorSel === '0') {
-        return alert('Selecione um mes de fechamento!')
-    }else {
+    if (valorSel === '12') {
+        return alert('Selecione o mes de fechamento!');
+    } else {
         resumao.push({
             ent: incomes.textContent,
             sai: expenses.textContent,
@@ -204,7 +201,7 @@ final.onclick = () => {
 
         let liCorrespondente;
 
-        listaOpcoes.forEach(li => {
+        listaOpcoes.forEach((li) => {
             const valorLi = li.getAttribute('data-value');
 
             if (valorLi === valorSel) {
@@ -219,21 +216,21 @@ final.onclick = () => {
             }
         })
 
-        resetMainData();
         localStorage.setItem('resumao', JSON.stringify(resumao));
         saveBarraLateralData();
+        resetMainData();
     }
-};
+}
 
+//função que salva a barra lateral
 function saveBarraLateralData() {
-    const listaOpcoes = document.querySelectorAll('.mes')
-    const dadosBarraLateral = []
+    const dadosBarraLateral = [];
 
-    listaOpcoes.forEach(li => {
-        const dataValue = li.getAttribute('data-value')
-        const expValue = li.querySelector('.exp').textContent
-        const incValue = li.querySelector('.inc').textContent
-        const totValue = li.querySelector('.tot').textContent
+    listaOpcoes.forEach((li, index) => {
+        const dataValue = index;
+        const expValue = li.querySelector('.exp').textContent;
+        const incValue = li.querySelector('.inc').textContent;
+        const totValue = li.querySelector('.tot').textContent;
 
         dadosBarraLateral.push({
             dataValue: dataValue,
@@ -243,5 +240,5 @@ function saveBarraLateralData() {
         })
     })
 
-    localStorage.setItem('dadosBarraLateral', JSON.stringify(dadosBarraLateral))
+    localStorage.setItem('dadosBarraLateral', JSON.stringify(dadosBarraLateral));
 }
