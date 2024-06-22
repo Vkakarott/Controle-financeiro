@@ -1,0 +1,32 @@
+:root {
+  --background-color: #dee9f1;
+  --primary-color: #ffffff;
+  --secondary-color: #2a2a72;
+  --tertiary-color: #72b01d;
+  --quaternary-color: #ffffff86;
+  --quinary-color: #ffffff;
+  --senary-color: #00000023;
+  --septenary-color: #ce93d8;
+  --octonary-color: #ba68c8;
+  --nonary-color: #ab47bc;
+  --denary-color: #9c27b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

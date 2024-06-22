@@ -1,0 +1,12 @@
+@import '../index.css';
+
+.navbar {
+    display: flex;
+    align-items: center;
+    height: 92%;
+    width: 55px;
+    background-color: var(--secondary-color);
+    border-radius: 13px;
+    position: absolute;
+    left: 23px;
+}

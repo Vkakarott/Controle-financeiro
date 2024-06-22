@@ -1,0 +1,25 @@
+@import '../index.css';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 85vw;
+  background-color: var(--quaternary-color);
+  border-radius: 50px;
+  border: 5px solid var(--quinary-color);
+  box-shadow: 0 0 15px 3px var(--senary-color);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 90%;
+  background-color: var(--primary-color);
+  border-radius: 25px;
+  box-shadow: 0 0 7px 1px var(--senary-color);
+  position: relative;
+}
