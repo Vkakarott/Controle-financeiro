@@ -1,0 +1,32 @@
+@import '../index.css';
+
+.rightbar {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 240px;
+    right: 0;
+    border-radius: 0 25px 25px 0;
+    background-color: #005fee;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    background-color: #d200ee;
+}
+
+.profile-image, img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    margin-left: 10px;
+    color: black;
+}
