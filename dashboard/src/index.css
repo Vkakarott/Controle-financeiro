@@ -1,11 +1,12 @@
 :root {
   --background-color: #e1ebf3;
-  --primary-color: #fafafa;
+  --background-snd: #fbfbfb;
+  --shawdon-w: #ffffff80;
+  --white: #ffffff;
+  --white-2: #f5f5f5;
   --secondary-color: #2a2a72;
   --tertiary-color: #ffffff;
-  --quaternary-color: #ffffff80;
-  --quinary-color: #ffffff;
-  --senary-color: #00000023;
+  --shawdon: #00000020;
   --septenary-color: #ce93d8;
   --octonary-color: #ba68c8;
   --nonary-color: #ab47bc;

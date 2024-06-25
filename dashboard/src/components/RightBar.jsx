@@ -1,5 +1,6 @@
 import React from "react";
 import './RightBar.css';
+import Calendar from "./Calendar";
 
 function RightBar() {
   return (
@@ -16,9 +17,7 @@ function RightBar() {
       <div className="historico">
 
       </div>
-      <div className="calendar">
-
-      </div>
+      <Calendar />
     </div>
   );
 }

@@ -6,20 +6,20 @@
   justify-content: center;
   height: 80vh;
   min-width: 1000px;
-  background-color: var(--quaternary-color);
+  background-color: var(--shawdon-w);
   border-radius: 40px;
-  border: 5px solid var(--quinary-color);
-  box-shadow: 0 0 15px 3px var(--senary-color);
+  border: 4px solid var(--white);
+  box-shadow: 0 0 15px 3px var(--shawdon);
 }
 
 .content {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 94%;
-  height: 92%;
-  background-color: var(--primary-color);
+  width: 95%;
+  height: 93%;
+  background-color: var(--background-snd);
   border-radius: 25px;
-  box-shadow: 0 0 7px 1px var(--senary-color);
+  box-shadow: 0 0 7px 1px var(--shawdon);
   position: relative;
 }
