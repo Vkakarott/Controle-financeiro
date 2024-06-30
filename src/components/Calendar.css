@@ -1,0 +1,70 @@
+@import '../index.css';
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 93%;
+    background-color: var(--white);
+    padding: 5px 5px 15px 5px;
+    border-radius: 25px 0;
+}
+
+.month {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+}
+
+h1 {
+    color: var(--primary-color);
+    padding: 5px;
+}
+
+.weeks {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 25px;
+    padding: 0 5px;
+}
+
+li {
+    list-style: none;
+    width: 34px;
+    height: 25px;
+    display: flex;
+    font-size: 0.85rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.weeks > li {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.days {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.current-day {
+    z-index: 2;
+}
+
+.current-day::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-shawdon);
+    color: var(--white);
+    border-radius: 50%;
+}
