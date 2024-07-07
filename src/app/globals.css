@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background: #dee7f3;
+  --ivory: #fbfbfb;
+  --bruma: #ffffff70;
+  --white: #ffffff;
+  --smoke: #f5f5f5;
+  --royal-blue: #2a2a72;
+  --picton-blue: #00a6ed;
+  --secundary-shawdon: #2a2a7230;
+  --primary-shawdon: #0062ff5c;
+  --shawdon: #00000020;
+  --dark-green: #0cca4a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background: #dee7f3;
+    --ivory: #fbfbfb;
+    --bruma: #ffffff70;
+    --white: #ffffff;
+    --smoke: #f5f5f5;
+    --royal-blue: #2a2a72;
+    --picton-blue: #00a6ed;
+    --secundary-shawdon: #2a2a7230;
+    --primary-shawdon: #0062ff5c;
+    --shawdon: #00000020;
+    --dark-green: #0cca4a;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+li {
+  list-style: none;
+  width: 36px;
+  height: 26px;
+  display: flex;
+  font-size: 0.85rem;
+  align-items: center;
+  justify-content: center;
+}

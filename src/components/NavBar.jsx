@@ -1,23 +1,22 @@
 import React from "react";
-import "./NavBar.css";
-import { BsHouse, BsBoxArrowLeft, BsCurrencyExchange, BsDatabaseAdd, BsDatabaseDash } from "react-icons/bs";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
-function NavBar() {
+export default function NavBar() {
     return (
-        <div className="navbar">
-            <div className="details">
-                <div className="pages">
-                    <BsHouse size={25} color="#fff" />
+        <nav className="flex items-center justify-between flex-col h-full px-5 py-8 text-2xl gap-7">
+            <div className="flex flex-col h-full bg-[var(--picton-blue)] px-3 py-7 rounded-full gap-12">
+                <div className="flex flex-col gap-3">
+                    <i class="bi bi-house"></i>
+                    <i class="bi bi-bar-chart"></i>
+                    <i class="bi bi-calendar3"></i>
                 </div>
-                <div className="inputs">
-                    <BsCurrencyExchange size={24} color="#fff" />
-                    <BsDatabaseAdd size={24} color="#fff" />
-                    <BsDatabaseDash size={24} color="#fff" />
+                <div className="flex flex-col gap-3 before:h-px before:bg-[var(--bruma)] after:h-px after:bg-[var(--bruma)]">
+                    <i class="bi bi-cash-coin"></i>
+                    <i class="bi bi-database-add"></i>
+                    <i class="bi bi-database-dash"></i>
                 </div>
-            </div>
-            <BsBoxArrowLeft style={{padding: 25}} size={27} color="#000" />
-        </div>
+            </div> 
+            <i class="bi bi-box-arrow-left"></i>
+        </nav>
     )
 }
-
-export default NavBar;
