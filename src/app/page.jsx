@@ -1,4 +1,5 @@
 import React from "react";
+import Card from "@/components/Card";
 import Main from "@/components/Main";
 import NavBar from "@/components/NavBar";
 import Header from "@/components/Header";
@@ -11,6 +12,7 @@ export default function Page() {
         <NavBar />
         <Conteiner>
           <Header />
+          <Card />
         </Conteiner>
         <SideBar />
       </Main>
