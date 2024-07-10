@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Conteiner({children}) {
     return (
-        <div className="flex flex-wrap justify-start items-start w-full h-full">
+        <div className="grid grid-cols-5 grid-rows-6 p-8 w-full h-full gap-7">
             {children}
         </div>
     )
