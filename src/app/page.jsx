@@ -22,7 +22,6 @@ export default function Page() {
           <View />
           <View />
           <View />
-          <View />
         </Conteiner>
         <SideBar />
       </Main>

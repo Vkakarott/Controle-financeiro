@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Item() {
     return (
-        <div className="flex w-52 h-50 rounded-3xl col-start-4 col-end-5 row-start-3 row-end-5 bg-orange-500">
+        <div className="flex justify-center items-center rounded-3xl col-start-5 col-end-7 row-start-3 row-end-5 bg-[#B7B5E4] border-white border shadow-md">
             card
         </div>
     );
