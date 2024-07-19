@@ -1,8 +1,9 @@
 import React from "react";
+import { dadosUsuario } from "../../dadosexample";
 
 export default function Header({user}) {
-    let nickname = user?.nickname ? user.nickname : "Username";
-    let avatar = user?.avatar ? user.avatar : "https://cdn.iconscout.com/icon/free/png-256/avatar-380-456332.png";
+    let nickname = dadosUsuario.nome;
+    let avatar = dadosUsuario.imagemDePerfil ? dadosUsuario.imagemDePerfil : "https://cdn.iconscout.com/icon/free/png-256/avatar-380-456332.png";
 
     return (
         <div className="flex items-end justify-between p-2 w-full h-16 col-start-1 col-end-7 row-start-1 row-end-2">
