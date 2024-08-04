@@ -11,17 +11,17 @@ export default function Feed() {
     const today = new Date().getDay();
 
     return (
-        <div className="flex flex-col gap-1">
+        <div className="flex w-11/12 flex-col gap-1 mt-1 ">
             {daysOfWeek.map((day, index) => {
             const event = events.find(event => event.day === day);
             const isToday = today === index;
         
             return (
-                <div key={day} className={`flex flex-col gap-1 ${isToday ? '' : 'bg-white'}`}>
-                    <div className="flex px-1 gap-1 font-semibold text-sm items-center after:w-full after:bg-black after:h-[2px]">
+                <div key={day} className={`flex flex-col gap-1 ${isToday ? 'bg-[var(--calendar)]' : 'bg-transparent'}`}>
+                    <div className="flex px-1 gap-1 font-semibold text-sm items-center after:w-full after:bg-[var(--zinc)] after:h-[2px] text-[var(--zinc)]">
                         {day}
                     </div>
-                    <div className={`flex w-3/4 rounded-lg p-1 text-sm h-10 ml-14 ${event ? 'bg-red-400' : 'bg-transparent'}`}>
+                    <div className={`flex w-3/4 rounded-lg p-1 text-sm h-10 ml-14 text-[var(--bruma)] ${event ? 'bg-[var(--primary-shawdon)]' : 'bg-transparent'}`}>
                         {event ? event.message : ''}
                     </div>
                 </div>

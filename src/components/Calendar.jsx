@@ -8,10 +8,10 @@ export default function Calendar() {
     const last_day = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
     return (
-        <div className="flex flex-col w-[95%] px-2 pb-4 mb-3 rounded-2xl bg-white items-center">
+        <div className="flex flex-col w-[95%] px-2 pb-4 mb-3 rounded-2xl bg-[var(--calendar)] items-center">
             <h1 className="font-semibold p-1">{month_name}</h1>
             <div>
-                <ul className="flex text-sm font-medium items-center justify-between">
+                <ul className="flex text-sm font-medium items-center justify-between text-[var(--text)]">
                     <li>Dom</li>
                     <li>Seg</li>
                     <li>Ter</li>

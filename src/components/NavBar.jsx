@@ -8,7 +8,7 @@ import { signOut } from "next-auth/react";
 export default function NavBar() {
     return (
         <nav className="flex items-center justify-between flex-col h-full px-5 py-8 text-2xl gap-7">
-            <div className="flex flex-col justify-between h-full bg-[var(--picton-blue)] px-3 py-6 rounded-full gap-12">
+            <div className="flex flex-col justify-between h-full bg-[var(--nav)] px-3 py-6 rounded-full gap-12 shadow-md">
                 <div className="flex flex-col gap-3">
                     <Button ariaLabel="Home"><i className="bi bi-house"></i></Button>
                     <Button ariaLabel="Statistic"><i className="bi bi-bar-chart"></i></Button>
