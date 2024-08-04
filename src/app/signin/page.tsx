@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 export default function SignInPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
@@ -14,13 +14,15 @@ export default function SignInPage() {
 
     const result = await signIn("credentials", {
       redirect: false,
-      username,
+      email,
       password,
     });
 
     if (result.error) {
+      console.error("Sign in error:", result.error);
       setError(result.error);
     } else {
+      console.log("Sign in successful");
       window.location.href = "/";
     }
   };
@@ -31,9 +33,9 @@ export default function SignInPage() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md"
           required
         />
@@ -53,8 +55,12 @@ export default function SignInPage() {
           Sign In
         </button>
         <button
+          type="button"
           onClick={() => window.location.href = '/register'}
-          className="flex w-min m-auto text-sm text-zinc-500">Register</button>
+          className="flex w-min m-auto text-sm text-zinc-500"
+        >
+          Register
+        </button>
       </form>
     </div>
   );

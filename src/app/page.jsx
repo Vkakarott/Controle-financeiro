@@ -20,7 +20,7 @@ export default async function Page() {
     <Main>
       <NavBar />
       <Container>
-        <Header />
+        <Header user={session.user}/>
         <Card />
         <PayDay />
         <Item />

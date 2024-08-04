@@ -12,24 +12,29 @@ export default function RegisterPage() {
     event.preventDefault();
     setError(null);
 
-    const res = await fetch("/api/auth/script", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-    });
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: username,
+          email,
+          password,
+        }),
+      });
 
-    const data = await res.json();
-    console.log("Response data:", data);
-    if (data.error) {
-      setError(data.error);
-    } else {
-      //window.location.href = "/signin";
+      const data = await res.json();
+      console.log("Response data:", data);
+      if (data.user) {
+        window.location.href = "/signin";
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+      console.error("Error:", err);
     }
   };
 
@@ -68,7 +73,11 @@ export default function RegisterPage() {
         >
           Register
         </button>
-        <button className="flex text-nowrap w-min m-auto text-sm text-zinc-500" onClick={() => window.location.href = '/signin'}>
+        <button 
+          type="button"
+          className="flex text-nowrap w-min m-auto text-sm text-zinc-500" 
+          onClick={() => window.location.href = '/signin'}
+        >
           Sign In
         </button>
       </form>

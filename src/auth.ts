@@ -11,26 +11,29 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     Credentials({
       name: 'Credentials',
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (c) => {
+      authorize: async (credentials) => {
+        console.log("Received credentials: ", credentials);
         try {
           const user = await prisma.user.findUnique({
-            where: { email: c.username as string },
-          }) as { id: string; name: string; email: string; emailVerified: Date; image: string; createdAt: Date; updatedAt: Date; password: string; };
+            where: { email: credentials.email as string },
+          });
 
-          if (user && await bcrypt.compare(c.password as string, user.password)) {
+          if (user && await bcrypt.compare(credentials.password as string, user.password)) {
             return {
               id: user.id,
               name: user.name,
               email: user.email,
             };
+          } else {
+            console.log("Invalid credentials");
+            return null;
           }
-          return null;
         } catch (error) {
           console.error('Error during authorization:', error);
-          return null; 
+          return null;
         }
       },
     }),
@@ -57,4 +60,4 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       return token;
     }
   }
-});
+})
