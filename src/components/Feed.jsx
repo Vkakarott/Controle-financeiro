@@ -18,10 +18,10 @@ export default function Feed() {
         
             return (
                 <div key={day} className={`flex flex-col gap-1 ${isToday ? 'bg-[var(--calendar)]' : 'bg-transparent'}`}>
-                    <div className="flex px-1 gap-1 font-semibold text-sm items-center after:w-full after:bg-[var(--zinc)] after:h-[2px] text-[var(--zinc)]">
+                    <div className="flex px-1 gap-1 font-semibold text-sm items-center after:w-full after:bg-[var(--color-details)] after:h-[2px] text-[var(--color-details)]">
                         {day}
                     </div>
-                    <div className={`flex w-3/4 rounded-lg p-1 text-sm h-10 ml-14 text-[var(--bruma)] ${event ? 'bg-[var(--primary-shawdon)]' : 'bg-transparent'}`}>
+                    <div className={`flex w-3/4 rounded-lg p-1 text-sm h-10 ml-14 text-[var(--text-color)] ${event ? 'bg-[var(--primary-shawdon)]' : 'bg-transparent'}`}>
                         {event ? event.message : ''}
                     </div>
                 </div>

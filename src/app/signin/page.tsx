@@ -19,16 +19,14 @@ export default function SignInPage() {
     });
 
     if (result.error) {
-      console.error("Sign in error:", result.error);
-      setError(result.error);
+      setError("Invalid credentials");
     } else {
-      console.log("Sign in successful");
       window.location.href = "/";
     }
   };
 
   return (
-    <div className="flex w-[380px] h-[370px] rounded-3xl border border-[var(--zinc)] shadow-md flex-col items-center justify-center p-5">
+    <div className="flex w-[380px] h-[370px] rounded-3xl border border-[var(--zinc)] shadow-md flex-col items-center justify-center p-5 bg-[var(--background1)]">
       <h1 className="text-2xl mb-7 font-semibold">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -47,17 +45,17 @@ export default function SignInPage() {
           className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md"
           required
         />
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-[var(--text-error)] - text-sm">{error}</p>}
         <button
           type="submit"
-          className="py-1 text-[var(--zinc)] bg-[var(--dark-green)] rounded"
+          className="py-1 text-[var(--zinc)] bg-[var(--primary-color)] rounded"
         >
           Sign In
         </button>
         <button
           type="button"
           onClick={() => window.location.href = '/register'}
-          className="flex w-min m-auto text-sm text-zinc-500"
+          className="flex w-min m-auto text-sm text-[var(--text-button)]"
         >
           Register
         </button>

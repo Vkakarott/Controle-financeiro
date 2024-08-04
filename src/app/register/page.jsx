@@ -26,15 +26,13 @@ export default function RegisterPage() {
       });
 
       const data = await res.json();
-      console.log("Response data:", data);
       if (data.user) {
         window.location.href = "/signin";
       } else {
         setError(data.message);
       }
-    } catch (err) {
+    } catch (error) {
       setError("Something went wrong. Please try again.");
-      console.error("Error:", err);
     }
   };
 
@@ -66,16 +64,16 @@ export default function RegisterPage() {
           className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md"
           required
         />
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-[var(--text-error)]">{error}</p>}
         <button
           type="submit"
-          className="py-1 text-[var(--zinc)] bg-[var(--dark-green)] rounded"
+          className="py-1 text-[var(--zinc)] bg-[var(--primary-color)] rounded"
         >
           Register
         </button>
         <button 
           type="button"
-          className="flex text-nowrap w-min m-auto text-sm text-zinc-500" 
+          className="flex text-nowrap w-min m-auto text-sm text-[var(--text-button)]" 
           onClick={() => window.location.href = '/signin'}
         >
           Sign In
