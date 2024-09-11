@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import Home from "@/pages/Home";
+import ConfigProfile from "@/pages/ConfigProfile";
 
 export interface ContainerPageProps {
     activePage: string;
@@ -13,14 +14,17 @@ export default function ContainerPage({ activePage, session }: ContainerPageProp
         case "home":
             page = <Home session={session} />;
             break;
+        case "config-profile":
+            page = <ConfigProfile session={session} />;
+            break;
         default:
             page = <div>No content available</div>
             break;
     }
 
     return(
-        <div className="flex w-full h-full">
+        <section className="flex w-full h-full">
             {page}
-        </div>
+        </section>
     );
 }
