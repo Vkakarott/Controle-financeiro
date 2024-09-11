@@ -1,24 +1,26 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Home from "@/pages/Home";
-import ConfigProfile from "@/pages/ConfigProfile";
 
-export default function ContainerPage({ activePage, session }) {
-    let content: React.ReactNode;
+export interface ContainerPageProps {
+    activePage: string;
+    session: any;
+}
+
+export default function ContainerPage({ activePage, session }: ContainerPageProps) {
+    let page: ReactNode;
 
     switch (activePage) {
         case "home":
-            content = <Home session={session}/>;
-        case "profile":
-            content = <ConfigProfile session={session}/>;
+            page = <Home session={session} />;
             break;
         default:
-            content = <div>No content available</div>;
+            page = <div>No content available</div>
             break;
     }
 
-    return (
+    return(
         <div className="flex w-full h-full">
-            {content}
+            {page}
         </div>
     );
 }

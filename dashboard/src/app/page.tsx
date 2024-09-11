@@ -6,6 +6,7 @@ import Main from "@/components/Main";
 
 export default async function Page() {
   const session = await auth();
+  console.log("session: ", session);
   if (!session) redirect("/api/auth/signin");
 
   return(
