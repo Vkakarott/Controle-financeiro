@@ -26,7 +26,7 @@ export default function NavBar({ onNavClick }: NavBarProps) {
                 </div>
                 <div className="flex flex-col gap-5 mt-16">
                     <Button 
-                    onClick={() => onNavClick("profile")}
+                    onClick={() => onNavClick("config-profile")}
                     ariaLabel="Profile"><i className="bi bi-person-gear"></i></Button>
                     <Button 
                     onClick={() => onNavClick("config")}
