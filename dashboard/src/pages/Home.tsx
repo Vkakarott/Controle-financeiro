@@ -20,8 +20,8 @@ interface Session {
 
 export default function Home({ session }: { session: Session }) {
     return (
-        <div className="flex w-full h-full">
-            <div className="grid grid-cols-6 grid-rows-6 p-8 w-full h-full gap-7">
+        <section className="flex w-full h-full">
+            <section className="grid grid-cols-6 grid-rows-6 p-8 w-full h-full gap-7">
                 <Header user={session.user}/>
                 <Card />
                 <PayDay />
@@ -29,8 +29,8 @@ export default function Home({ session }: { session: Session }) {
                 <View />
                 <View />
                 <View />
-            </div>
+            </section>
             <SideBar />
-        </div>
+        </section>
     )
 }
