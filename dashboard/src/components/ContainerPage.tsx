@@ -1,5 +1,8 @@
 import React, { ReactNode } from "react";
 import Home from "@/pages/Home";
+import Calendar from "@/pages/Calendar";
+import Settings from "@/pages/Settings";
+import Graphics from "@/pages/graphics";
 import ConfigProfile from "@/pages/ConfigProfile";
 
 export interface ContainerPageProps {
@@ -13,6 +16,15 @@ export default function ContainerPage({ activePage, session }: ContainerPageProp
     switch (activePage) {
         case "home":
             page = <Home session={session} />;
+            break;
+        case "statistics":
+            page = <Graphics />;
+            break;
+        case "calendar":
+            page = <Calendar />;
+            break;
+        case "settings":
+            page = <Settings />;
             break;
         case "config-profile":
             page = <ConfigProfile session={session} />;
