@@ -27,7 +27,7 @@ export default function Feed({ events }: { events: Event[] }) {
                         <div className="flex text-xs absolute z-0 p-9 text-zinc-800">
                             {day}
                         </div>
-                        <div className={`flex w-3/4 rounded-lg p-1 z-20 text-sm h-10 ml-14 text-[var(--text-color)] ${event ? 'bg-[var(--primary-shawdon)]' : 'bg-transparent'}`}>
+                        <div className={`flex w-3/4 rounded-lg p-1 z-20 text-sm h-10 ml-14 text-[var(--text-color)] ${event ? 'bg-[var(--primary-shadow)]' : 'bg-transparent'}`}>
                             {event ? event.message : ''}
                         </div>
                     </div>

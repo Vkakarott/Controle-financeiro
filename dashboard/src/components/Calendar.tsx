@@ -27,7 +27,7 @@ export default function Calendar() {
                         <li key={`empty-${emptyDay}`}></li>
                     ))}
                     {[...Array(last_day).keys()].map((dayNumber) => (
-                        <li key={dayNumber + 1} className={dayNumber + 1 === day ? 'z-10 before:absolute before:z-0 before:w-5 before:h-5 before:bg-[var(--primary-shawdon)] before:rounded-full' : ''}>
+                        <li key={dayNumber + 1} className={dayNumber + 1 === day ? 'z-10 before:absolute before:z-0 before:w-5 before:h-5 before:bg-[var(--primary-shadow)] before:rounded-full' : ''}>
                                 {dayNumber + 1}
                         </li>
                     ))}

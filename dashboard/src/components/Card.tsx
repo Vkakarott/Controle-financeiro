@@ -4,7 +4,7 @@ export default function Card() {
     const value = 1200;
 
     return (
-        <div className="flex flex-col w-full h-full rounded-3xl col-start-1 col-end-5 row-start-2 row-end-5 p-2 bg-[var(--cards)] shadow-md shadow-[var(--shawdon)]">
+        <div className="flex flex-col w-full h-full rounded-3xl col-start-1 col-end-5 row-start-2 row-end-5 p-2 bg-[var(--cards)] shadow-md shadow-[var(--shadow)]">
             <div className="flex w-full h-4/5 p-1 items-center justify-center">
             
             </div>
