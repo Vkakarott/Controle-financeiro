@@ -1,15 +1,16 @@
 import React from "react";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { dataBase } from "@/dataBase";
 
 import Main from "@/components/Main";
 
 export default async function Page() {
-  const session = await auth();
-  console.log("session: ", session);
-  if (!session) redirect("/api/auth/signin");
+  //const session = await auth();
+  //console.log("session: ", session);
+  //if (!session) redirect("/api/auth/signin");
 
   return(
-    <Main session={session} />
+    <Main session={dataBase} />
   )
 }

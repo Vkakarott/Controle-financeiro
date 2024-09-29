@@ -10,21 +10,18 @@ interface User {
     name: string;
     email: string;
     image: string;
-    id: string;
+    profession: string;
+    fixedIncome: number;
+    payOff: number;
 }
 
-interface Session {
-    user: User;
-    expires: string;
-}
-
-export default function Home({ session }: { session: Session }) {
+export default function Home({ session }: { session: User }) {
     return (
         <section className="flex w-full h-full">
             <section className="grid grid-cols-6 grid-rows-6 p-8 w-full h-full gap-7">
-                <Header user={session.user}/>
+                <Header user={session}/>
                 <Card />
-                <PayDay />
+                <PayDay payOff={session.payOff}/>
                 <Item />
                 <View />
                 <View />

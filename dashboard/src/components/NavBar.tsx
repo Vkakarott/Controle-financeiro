@@ -29,8 +29,8 @@ export default function NavBar({ onNavClick }: NavBarProps) {
                     onClick={() => onNavClick("config-profile")}
                     ariaLabel="Profile"><i className="bi bi-person-gear"></i></Button>
                     <Button 
-                    onClick={() => onNavClick("config")}
-                    ariaLabel="config"><i className="bi bi-gear"></i></Button>
+                    onClick={() => onNavClick("settings")}
+                    ariaLabel="settings"><i className="bi bi-gear"></i></Button>
                 </div>
             </div> 
             <Button ariaLabel="SignOut" onClick={() => signOut()}><i className="bi bi-box-arrow-left"></i></Button>
