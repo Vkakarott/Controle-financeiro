@@ -13,7 +13,7 @@ export default function NavBar({ onNavClick }: NavBarProps) {
     return (
         <nav className="flex items-center justify-between flex-col h-full px-5 py-8 text-2xl gap-7">
             <div className="flex flex-col justify-between h-full bg-[var(--nav)] px-3 py-7 rounded-full gap-12 shadow-md">
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-7">
                     <Button
                     onClick={() => onNavClick("home")} 
                     ariaLabel="Home"><i className="bi bi-house"></i></Button>

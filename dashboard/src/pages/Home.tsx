@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "@/components/Card";   
+import Card from "@/components/OverviewContainer";   
 import Item from "@/components/Item";
 import View from "@/components/View";
 import Header from "@/components/Header";
