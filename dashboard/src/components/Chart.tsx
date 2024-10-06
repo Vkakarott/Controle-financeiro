@@ -9,95 +9,120 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 const chartConfig = {
     incomes: {
         label: "Incomes",
-        color: "hsl(var(--primary-color))",
+        color: "var(--chart-1)",
     },
     expenses: {
         label: "Expenses",
-        color: "hsl(var(--chart-2))",
+        color: "var(--chart-2)",
     },
-    
+    balance: {
+        label: "Balance",
+        color: "var(--chart-3)",
+    }
 } satisfies ChartConfig;
 
 interface ChatData {
     month: string;
     incomes: number;
     expenses: number;
+    balance: number;
 }
+
+const currentMonth = new Date().toLocaleString("default", { month: "long" });
 
 export function Chart({ chartData }: { chartData: ChatData[] }) {
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle className="flex items-center justify-center text-[var(--zinc)]">overview</CardTitle>
+        <Card className="border-none w-full">
+            <CardHeader className="py-3">
+                <CardTitle className="flex items-center justify-center text-zinc-400">overview</CardTitle>
             </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfig}>
+            <CardContent className="pb-4">
+                <ChartContainer className="h-56 w-full" config={chartConfig}>
                     <AreaChart 
                         accessibilityLayer
                         data={chartData}
                         margin={{
-                            left: 12,
-                            right: 12,
+                            left: 13,
+                            right: 13,
                         }}
                     >
-                        <CartesianGrid vertical={false} />
-                        <XAxis 
-                            dataKey="month"
-                            tickLine={false}
-                            axisLine={false}
-                            tickMargin={8}
-                            tickFormatter={(value) => value.slice(0, 3)}
-                        />
-                        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                        <defs>
-                            <linearGradient id="fillIncomes" x1="0" y1="0" x2="0" y2="1">
-                                <stop
-                                    offset="5%"
-                                    stopColor="var(--chart-1)"
-                                    stopOpacity={0.8}
-                                />
-                            </linearGradient>
-                            <linearGradient id="fillExpenses" x1="0" y1="0" x2="0" y2="1">
-                                <stop
-                                    offset="5%"
-                                    stopColor="var(--chart-2)"
-                                    stopOpacity={0.8}
-                                />
-                                <stop
-                                    offset="95%"
-                                    stopColor="var(--chart-2)"
-                                    stopOpacity={0.1}
-                                />
-                            </linearGradient>
-                        </defs>
-                        <Area
-                            dataKey="incomes"
-                            type="natural"
-                            fill="url(#fillIncomes)"
-                            fillOpacity={0.4}
-                            stroke="var(--chart-1)"
-                            stackId="a"
-                        />
-                        <Area
-                            dataKey="expenses"
-                            type="natural"
-                            fill="url(#fillExpenses)"
-                            fillOpacity={0.4}
-                            stroke="var(--chart-2)"
-                            stackId="a"
-                        />
-                    </AreaChart>
+                    <CartesianGrid vertical={false} />
+                    <XAxis 
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => value.slice(0, 3)}
+                    />
+                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                    <defs>
+                        <linearGradient id="fillIncomes" x1="0" y1="0" x2="0" y2="1">
+                            <stop
+                                offset="5%"
+                                stopColor="var(--chart-1)"
+                                stopOpacity={0.8}
+                            />
+                        </linearGradient>
+                        <linearGradient id="fillExpenses" x1="0" y1="0" x2="0" y2="1">
+                            <stop
+                                offset="5%"
+                                stopColor="var(--chart-2)"
+                                stopOpacity={0.8}
+                            />
+                            <stop
+                                offset="95%"
+                                stopColor="var(--chart-2)"
+                                stopOpacity={0.1}
+                            />
+                        </linearGradient>
+                        <linearGradient id="fillBalace" x1="0" y1="0" x2="0" y2="1">
+                            <stop
+                                offset="5%"
+                                stopColor="var(--chart-3)"
+                                stopOpacity={0.8}
+                            />
+                            <stop
+                                offset="95%"
+                                stopColor="var(--chart-3)"
+                                stopOpacity={0.1}
+                            />
+                        </linearGradient>
+                    </defs>
+                    <Area
+                        dataKey="incomes"
+                        type="natural"
+                        fill="url(#fillIncomes)"
+                        fillOpacity={0.4}
+                        stroke="var(--chart-1)"
+                        stackId="a"
+                    />
+                    <Area
+                        dataKey="expenses"
+                        type="natural"
+                        fill="url(#fillExpenses)"
+                        fillOpacity={0.4}
+                        stroke="var(--chart-2)"
+                        stackId="a"
+                    />
+                    <Area
+                        dataKey="balance"
+                        type="natural"
+                        fill="url(#fillBalance)"
+                        fillOpacity={0.4}
+                        stroke="var(--chart-3)"
+                        stackId="a"
+                    />
+                </AreaChart>
                 </ChartContainer>
-                <CardFooter>
-                    <div className="flex w-full items-start gap-2 text-sm">
-                        <div className="grid gap-2">
-                            <div className="flex items-center gap-2 font-medium leading-none">
-                                Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                            </div>
-                            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                            January - June 2024
-                            </div>
-                        </div>
+                <CardFooter className="p-0 pt-2">
+                    <div className="flex w-full bg-[var(--cards)] p-4 rounded-lg gap-7">
+                        {
+                            chartData[chartData.length - 1].balance > 0 ? (
+                                <TrendingUp size={16} className="text-green-500" />
+                            ) : (
+                                <TrendingUp size={16} className="text-red-500" />
+                            )}
+                            $ {chartData[chartData.length - 1].balance}
                     </div>
                 </CardFooter>
             </CardContent>
