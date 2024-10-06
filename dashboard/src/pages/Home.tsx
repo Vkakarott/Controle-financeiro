@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "@/components/OverviewContainer";   
-import Item from "@/components/Item";
+import Tracking from "@/components/Tracking";
 import View from "@/components/View";
 import Header from "@/components/Header";
 import PayDay from "@/components/PayDay";
@@ -15,6 +15,15 @@ interface User {
     payOff: number;
 }
 
+const chartData = [
+    { "label": "electronics", "value": 200 },
+    { "label": "drinks", "value": 400 },
+    { "label": "food", "value": 300 },
+    { "label": "clothes", "value": 100 },
+    { "label": "leisure", "value": 500 },
+    { "label": "others", "value": 600 },
+];
+
 export default function Home({ session }: { session: User }) {
     return (
         <section className="flex w-full h-full">
@@ -22,7 +31,7 @@ export default function Home({ session }: { session: User }) {
                 <Header user={session}/>
                 <Card />
                 <PayDay payOff={session.payOff}/>
-                <Item />
+                <Tracking chartData={chartData}/>
                 <View />
                 <View />
                 <View />
