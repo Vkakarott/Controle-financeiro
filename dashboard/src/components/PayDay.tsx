@@ -34,7 +34,7 @@ export default function PayDay({ payOff }: PayDayProps) {
                 <i className="bi bi-hourglass-split text-3xl text-[var(--veu)]"></i>
             </div>
             <div className="flex flex-col mr-2">
-                <h1 className="text-xl font-semibold text-white">{remainingDays} dias</h1>
+                <h1 className="text-xl font-semibold text-white">{remainingDays} days</h1>
                 <p className="text-sm text-slate-400">{payOff}/{currentMonth}</p>
             </div>
         </div>
