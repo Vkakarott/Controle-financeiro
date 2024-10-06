@@ -32,7 +32,7 @@ const currentMonth = new Date().toLocaleString("default", { month: "long" });
 
 export function Chart({ chartData }: { chartData: ChatData[] }) {
     return (
-        <Card className="border-none w-full">
+        <Card className="border-none w-full rounded-2xl">
             <CardHeader className="py-3">
                 <CardTitle className="flex items-center justify-center text-zinc-400">overview</CardTitle>
             </CardHeader>

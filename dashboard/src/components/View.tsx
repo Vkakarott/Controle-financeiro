@@ -2,11 +2,13 @@ import React from "react";
 
 export default function View() {
     return (
-        <div className="flex relative items-end col-span-2 row-span-2">
-            <div className="flex top-7 left-7 shadow-md bg-slate-600 w-14 h-14 rounded-xl items-center justify-center absolute">icon</div>
-            <div className="flex shadow-md w-full h-3/4 rounded-2xl bg-[var(--smoke)]">
-
+        <div className="flex flex-col mt-10 border border-zinc-700 bg-[var(--cards)] rounded-2xl col-start-1 col-end-7 row-span-2">
+            <div className="flex p-2 px-4 bg-black">
+                titles
             </div>
+            <div className="flex h-full bg-white">
+                lists    
+            </div> 
         </div>
     )
 }

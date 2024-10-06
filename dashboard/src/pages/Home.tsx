@@ -33,8 +33,6 @@ export default function Home({ session }: { session: User }) {
                 <PayDay payOff={session.payOff}/>
                 <Tracking chartData={chartData}/>
                 <View />
-                <View />
-                <View />
             </section>
             <SideBar />
         </section>
