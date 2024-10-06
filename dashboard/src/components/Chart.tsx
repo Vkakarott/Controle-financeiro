@@ -115,7 +115,7 @@ export function Chart({ chartData }: { chartData: ChatData[] }) {
                 </AreaChart>
                 </ChartContainer>
                 <CardFooter className="p-0 pt-2">
-                    <div className="flex w-full bg-[var(--cards)] p-4 rounded-lg gap-7">
+                    <div className="flex w-full items-center bg-[var(--cards)] p-3 px-6 rounded-lg gap-6 text-lg font-medium">
                         {
                             chartData[chartData.length - 1].balance > 0 ? (
                                 <TrendingUp size={16} className="text-green-500" />
