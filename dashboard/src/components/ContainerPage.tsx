@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import Home from "@/pages/Home";
 import Calendar from "@/pages/Calendar";
 import Settings from "@/pages/Settings";
-import Graphics from "@/pages/graphics";
+import Graphics from "@/pages/Graphics";
 import ConfigProfile from "@/pages/ConfigProfile";
 
 export interface ContainerPageProps {

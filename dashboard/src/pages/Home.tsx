@@ -1,10 +1,10 @@
 import React from "react";
-import Card from "@/components/OverviewContainer";   
-import Tracking from "@/components/Tracking";
-import View from "@/components/View";
 import Header from "@/components/Header";
 import PayDay from "@/components/PayDay";
 import SideBar from "@/components/SideBar";
+import Tracking from "@/components/Tracking";
+import Card from "@/components/OverviewContainer";   
+import Transactions from "@/components/Transactions";
 
 interface User {
     name: string;
@@ -13,6 +13,14 @@ interface User {
     profession: string;
     fixedIncome: number;
     payOff: number;
+    transactions: {
+        id: string;
+        type: string;
+        value: number;
+        label: string;
+        date: string;
+        userId: string;
+    }
 }
 
 const chartData = [
@@ -32,7 +40,7 @@ export default function Home({ session }: { session: User }) {
                 <Card />
                 <PayDay payOff={session.payOff}/>
                 <Tracking chartData={chartData}/>
-                <View />
+                <Transactions dataBase={session.transactions}/>
             </section>
             <SideBar />
         </section>
