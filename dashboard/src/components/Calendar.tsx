@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Loading from "./Loading";
 
 export default function Calendar() {
-    const date = new Date();
+    const [date, setDate] = useState<Date | null>(null);
+
+    useEffect(() => {
+        setDate(new Date());
+    }, []);
+
+    if (!date) {
+        return <div className="flex w-[265px] h-[200px] mx-1 px-1 mb-3 rounded-2xl bg-[var(--calendar)] items-center justify-center">
+            <Loading />
+        </div>;
+    }
+
     const month_name = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][date.getMonth()];
     const day = date.getDate();
     const first_day = new Date(date.getFullYear(), date.getMonth(), 1).getDay();

@@ -13,14 +13,14 @@ interface User {
     profession: string;
     fixedIncome: number;
     payOff: number;
-    transactions: {
+    transactions: Array<{
         id: string;
         type: string;
         value: number;
         label: string;
         date: string;
         userId: string;
-    }
+    }>
 }
 
 const chartData = [
@@ -42,7 +42,7 @@ export default function Home({ session }: { session: User }) {
                 <Tracking chartData={chartData}/>
                 <Transactions dataBase={session.transactions}/>
             </section>
-            <SideBar />
+            <SideBar events={[]}/>
         </section>
     )
 }
