@@ -7,7 +7,19 @@ interface PopoverComponentProps {
     currency: string;
 }
 
+const options = [
+    { label: "Electronics", value: "electronics" },
+    { label: "Drinks", value: "drinks" },
+    { label: "Food", value: "food" },
+    { label: "Clothes", value: "clothes" },
+    { label: "Leisure", value: "leisure" },
+    { label: "Others", value: "others" },
+];
+
 export function PopoverInput({ isOpen, onclose, currency }: PopoverComponentProps) {
+    const handleSelectChange = (value: string) => {
+        console.log(value);
+    }
     return (
         <Popover 
             open={isOpen}
@@ -38,7 +50,7 @@ export function PopoverInput({ isOpen, onclose, currency }: PopoverComponentProp
                         <input type="number" className="w-full bg-transparent p-1 px-3 border border-[var(--zinc)] rounded" />
                     </div>
                     <div className="flex items-center gap-2">
-                        <SelectComponent />
+                        <SelectComponent value="" options={options} onChange={ handleSelectChange } placeholder="Tag"  />
                     </div>
                     <div className="flex w-full justify-end">
                         <button type="submit" className="w-24 font-bold text-sm p-2 mt-5 bg-white text-black rounded">Add</button>
