@@ -6,7 +6,7 @@ export const dataBase = {
         "profession": "Software Engineer",
         "fixedIncome": 8000.00,
         "payOff": 30,
-        "currency": "USD",
+        "currency": "$",
         "transactions": [
             {
             "id": "cljn2l7tx000501mhkshzj3p1",
