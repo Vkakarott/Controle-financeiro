@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import Home from "@/pages/Home";
 import Calendar from "@/pages/Calendar";
-import Settings from "@/pages/Settings";
 import Graphics from "@/pages/Graphics";
 import ConfigProfile from "@/pages/ConfigProfile";
 
@@ -22,9 +21,6 @@ export default function ContainerPage({ activePage, session }: ContainerPageProp
             break;
         case "calendar":
             page = <Calendar />;
-            break;
-        case "settings":
-            page = <Settings />;
             break;
         case "config-profile":
             page = <ConfigProfile session={session} />;
