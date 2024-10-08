@@ -105,13 +105,13 @@ li {
     --secondary-foreground: 240, 100%, 50%;
     --muted: 240, 100%, 50%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 240, 100%, 50%;
-    --accent-foreground: 240, 100%, 50%;
+    --accent: 0, 0%, 8.24%;
+    --accent-foreground: 0, 0%, 100%;
     --destructive: 240, 100%, 50%;
-    --destructive-foreground: 240, 100%, 50%;
-    --border: 240, 100%, 50%;
-    --input: 240, 100%, 50%;
-    --ring: 240, 100%, 50%;
+    --destructive-foreground: 0, 0%, 8.24%;
+    --border: 0, 0%, 8.24%;
+    --input: 0, 0%, 8.24%;
+    --ring: 0, 0%, 8.24%;
     --chart-1: #15ff00;
     --chart-3: #0026ff;
     --chart-2: #ff0000;
@@ -144,4 +144,14 @@ li {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }
