@@ -6,6 +6,7 @@ import TitleEdit from "@/components/TitleEdit";
 import Input from "@/components/Input";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
+import { ModeToggle } from "@/components/ToggleTheme";
 import { SelectComponent } from "@/components/SelectComponent";
 
 interface User {
@@ -95,6 +96,9 @@ export default function ConfigProfile({ session }: { session: User }) {
                 </div>
             </div>
             <div className="flex flex-col h-full w-1/2 rounded-2xl shadow-2xl p-5 items-center justify-center">
+                <div className="flex w-full p-2">
+                    <ModeToggle />
+                </div>
                 <Avatar src={image} className="w-36 h-36" />
                 <TitleEdit initialValue={name} onChange={handleNameChange} />
             </div>
