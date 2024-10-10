@@ -25,7 +25,7 @@ export default function Calendar() {
                 {month_name}
             </h1>
             <div>
-                <ul className="flex text-sm font-medium items-center justify-between text-[var(--text)]">
+                <ul className="flex text-sm font-medium items-center justify-between text-[var(--text-light)]">
                     <li>Sun</li>
                     <li>Mon</li>
                     <li>Tue</li>
