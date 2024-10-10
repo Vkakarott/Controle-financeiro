@@ -34,7 +34,7 @@ export function Chart({ chartData }: { chartData: ChatData[] }) {
     return (
         <Card className="border-none w-full rounded-2xl">
             <CardHeader className="py-3">
-                <CardTitle className="flex items-center justify-center text-zinc-400">overview</CardTitle>
+                <CardTitle className="flex items-center justify-center text-[var(--text-light)]">overview</CardTitle>
             </CardHeader>
             <CardContent className="pb-4">
                 <ChartContainer className="h-56 w-full" config={chartConfig}>

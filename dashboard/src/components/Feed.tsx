@@ -20,7 +20,7 @@ export default function Feed({ events }: { events: Event[] }) {
                 const isToday = today.getDay() === index;
         
                 return (
-                    <div key={day} className={`flex flex-col gap-1 ${isToday ? 'bg-[var(--calendar)]' : 'bg-transparent'}`}>
+                    <div key={day} className={`flex flex-col rounded-md gap-1 ${isToday ? 'bg-[var(--calendar)]' : 'bg-transparent'}`}>
                         <div className="flex px-1 gap-1 font-semibold text-sm items-center after:w-full after:bg-[var(--color-details)] after:h-[2px] text-[var(--color-details)] z-30">
                             {currentDay}
                         </div>

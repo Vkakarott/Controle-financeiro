@@ -27,8 +27,8 @@ export function PopoverInput({ isOpen, onclose, currency }: PopoverComponentProp
                 if (!open) onclose();
             }}
         >
-            <PopoverContent className="w-80 absolute top-56 left-72 bg-[var(--cards)] rounded-lg border-[var(--zinc)] ">
-                <form className="flex flex-col gap-3 p-5 text-white">
+            <PopoverContent className="w-80 absolute top-56 left-72 bg-[var(--cards)] rounded-lg border-[var(--border-card)] ">
+                <form className="flex flex-col gap-3 p-5 text-[var(--text)]">
                     <div className="flex flex-col">
                         <h4 className="font-medium leading-none">New Transaction</h4>
                         <p className="text-sm text-muted-foreground">
@@ -37,11 +37,11 @@ export function PopoverInput({ isOpen, onclose, currency }: PopoverComponentProp
                     </div>
                     <div className="flex w-full items-center mt-3 gap-5">
                         <div className="flex items-center">
-                            <input type="radio" name="transactionType" value="income" className="w-4 h-4 accent-zinc-300" id="income" />
+                            <input type="radio" name="transactionType" value="income" className="w-4 h-4 accent-accent-[var(--nav)]" id="income" />
                             <label htmlFor="income" className="text-sm px-2 text-muted-foreground">Incomes</label>
                         </div>
                         <div className="flex items-center">
-                            <input type="radio" name="transactionType" value="expense" className="w-4 h-4 accent-zinc-300" id="expense" />
+                            <input type="radio" name="transactionType" value="expense" className="w-4 h-4 accent-accent-[var(--nav)]" id="expense" />
                             <label htmlFor="expense" className="text-sm px-2 text-muted-foreground">Expenses</label>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ export function PopoverInput({ isOpen, onclose, currency }: PopoverComponentProp
                         <SelectComponent value="" options={options} onChange={ handleSelectChange } placeholder="Tag"  />
                     </div>
                     <div className="flex w-full justify-end">
-                        <button type="submit" className="w-24 font-bold text-sm p-2 mt-5 bg-white text-black rounded">Add</button>
+                        <button type="submit" className="w-24 font-bold text-sm p-2 mt-5 bg-[var(--text)] text-[var(--text-inverse)] rounded">Add</button>
                     </div>
                 </form>
             </PopoverContent>

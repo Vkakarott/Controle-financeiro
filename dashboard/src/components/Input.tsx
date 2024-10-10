@@ -25,7 +25,7 @@ export default function Input({
                 type={type}
                 value={value}
                 onChange={onChange}
-                className={`w-min h-6 px-2 text-base border-b-2 border-zinc-800 focus:outline-none bg-transparent ${className}`}
+                className={`w-min h-6 px-2 text-base focus:outline-none bg-transparent ${className}`}
                 {...props}
             />
         </div>

@@ -14,7 +14,7 @@ export function SelectComponent({ value, onChange, options, placeholder }: Selec
       <SelectTrigger className="w-[180px] border-[var(--zinc)]">
         <SelectValue placeholder="Select tag" />
       </SelectTrigger>
-      <SelectContent className="bg-card text-white selection:border-white">
+      <SelectContent className="bg-card text-[var(--text)] selection:border-white">
         <SelectGroup >
             <SelectLabel>{placeholder}</SelectLabel>
                 {options.map((option) => (

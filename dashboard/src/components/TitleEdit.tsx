@@ -21,7 +21,7 @@ export default function TitleEdit({ initialValue, onChange }: TitleEditProps) {
     }
 
     return (
-        <div className="flex items-center p-2 mt-3">
+        <div className="flex items-center mt-3">
             {isEditable ? (
                 <input
                     type="text"
@@ -34,7 +34,7 @@ export default function TitleEdit({ initialValue, onChange }: TitleEditProps) {
                 />
             ) : (
                 <div className="flex justify-between items-center gap-5 p-2">
-                    <h1 className="flex">{value}</h1>
+                    <h1 className="flex font-medium">{value}</h1>
                     <Button ariaLabel="Edit" onClick={() => setIsEditable(true)}>
                         <i className="bi bi-pencil"></i>
                     </Button>
