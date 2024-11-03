@@ -12,13 +12,15 @@ datasource db {
 
 model User {
   id            String          @id @default(cuid())
-  name          String?         @unique
-  email         String?         @unique
-  password      String?
+  name          String          @unique
+  email         String          @unique
+  password      String
   emailVerified DateTime?
   image         String?
   profession    String?
-  fixedIncome   String?
+  fixedIncome   Float?
+  payOff        Int?
+  currency      String?
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
