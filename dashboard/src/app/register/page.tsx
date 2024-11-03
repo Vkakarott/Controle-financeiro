@@ -30,6 +30,7 @@ export default function RegisterPage() {
                 window.location.href = "/signin";
             } else {
                 setError(data.message as string);
+                console.error(data.message);
             }
         } catch (error) {
             setError("Something wenr wrong. Please try again.");	

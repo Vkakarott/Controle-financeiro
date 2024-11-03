@@ -4,18 +4,17 @@ import ConfigProfile from "@/pages/ConfigProfile";
 
 export interface ContainerPageProps {
     activePage: string;
-    session: any;
 }
 
-export default function ContainerPage({ activePage, session }: ContainerPageProps) {
+export default function ContainerPage({ activePage }: ContainerPageProps) {
     let page: ReactNode;
 
     switch (activePage) {
         case "home":
-            page = <Home session={session} />;
+            page = <Home />;
             break;
         case "config-profile":
-            page = <ConfigProfile session={session} />;
+            page = <ConfigProfile />;
             break;
         default:
             page = <div>No content available</div>

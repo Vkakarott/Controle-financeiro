@@ -8,9 +8,10 @@ import { PopoverInput } from "./NewInput";
 
 interface NavBarProps {
     onNavClick: (page: string) => void;
+    id: string;
 }
 
-export default function NavBar({ onNavClick }: NavBarProps) {
+export default function NavBar({ onNavClick, id }: NavBarProps) {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
     const togglePopUp = () => {
@@ -33,7 +34,11 @@ export default function NavBar({ onNavClick }: NavBarProps) {
             </div> 
             <Button ariaLabel="SignOut" onClick={() => signOut()}><i className="bi bi-box-arrow-left"></i></Button>
             {isPopoverOpen && (
-                <PopoverInput isOpen={isPopoverOpen} onclose={togglePopUp} currency="US$"/>
+                <PopoverInput 
+                    isOpen={isPopoverOpen} 
+                    onclose={togglePopUp} 
+                    currency="US$"
+                    id={id}/>
             )}
         </nav>
     )

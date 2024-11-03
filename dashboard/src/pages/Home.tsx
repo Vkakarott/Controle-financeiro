@@ -6,22 +6,7 @@ import Tracking from "@/components/Tracking";
 import Card from "@/components/OverviewContainer";   
 import Transactions from "@/components/Transactions";
 
-interface User {
-    name: string;
-    email: string;
-    image: string;
-    profession: string;
-    fixedIncome: number;
-    payOff: number;
-    transactions: Array<{
-        id: string;
-        type: string;
-        value: number;
-        label: string;
-        date: string;
-        userId: string;
-    }>
-}
+import { useUser } from "@/context/UserContext";
 
 const chartData = [
     { "label": "electronics", "value": 200 },
@@ -32,15 +17,21 @@ const chartData = [
     { "label": "others", "value": 600 },
 ];
 
-export default function Home({ session }: { session: User }) {
+export default function Home() {
+    const { user, loading, error } = useUser();
+    console.log("user", user);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
+
     return (
         <section className="flex w-full h-full">
             <section className="grid grid-cols-6 grid-rows-6 p-8 w-full h-full gap-7">
-                <Header user={session}/>
+                <Header user={user}/>
                 <Card />
-                <PayDay payOff={session.payOff}/>
+                <PayDay payOff={user?.payOff ?? 0}/>
                 <Tracking chartData={chartData}/>
-                <Transactions dataBase={session.transactions}/>
+                <Transactions dataBase={user?.transactions ?? []}/>
             </section>
             <SideBar events={[]}/>
         </section>

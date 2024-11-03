@@ -8,56 +8,49 @@ import Input from "@/components/Input";
 import Avatar from "@/components/Avatar";
 import { ModeToggle } from "@/components/ToggleTheme";
 import { SelectComponent } from "@/components/SelectComponent";
-
-interface User {
-    name: string;
-    email: string;
-    image: string;
-    profession: string;
-    fixedIncome: number;
-    payOff: number;
-    currency: string;
-}
+import { useUser } from "@/context/UserContext";
 
 const currencyOptions = [
-    { label: "BRL", value: "R$" }, // Real brasileiro
-    { label: "USD", value: "$" },  // Dólar americano
-    { label: "EUR", value: "€" },  // Euro
-    { label: "GBP", value: "£" },  // Libra esterlina
-    { label: "JPY", value: "¥" },   // Iene japonês
-    { label: "INR", value: "₹" },   // Rupia indiana
-    { label: "KRW", value: "₩" },   // Won sul-coreano
-    { label: "CHF", value: "CHF" }, // Franco suíço
-    { label: "CAD", value: "C$" },  // Dólar canadense
+    { label: "BRL", value: "R$" }, 
+    { label: "USD", value: "$" },  
+    { label: "EUR", value: "€" },  
+    { label: "GBP", value: "£" },  
+    { label: "JPY", value: "¥" },  
+    { label: "INR", value: "₹" },  
+    { label: "KRW", value: "₩" },  
+    { label: "CHF", value: "CHF" },
+    { label: "CAD", value: "C$" },
 ];
 
-export default function ConfigProfile({ session }: { session: User }) {
-    const [name, setName] = useState(session.name);
-    const [image, setImage] = useState(session.image);
-    const [profession, setProfession] = useState(session.profession);
-    const [fixedIncome, setFixedIncome] = useState(session.fixedIncome);
-    const [payOff, setPayOff] = useState(session.payOff);
-    const [currency, setCurrency] = useState(session.currency);
+export default function ConfigProfile() {
+    const { user, loading, error } = useUser();
+    const [name, setName] = useState(user?.name ?? "");
+    const email = user?.email;
+    const [image, setImage] = useState(user?.image);
+    const [profession, setProfession] = useState(user?.profession ?? "");
+    const [payOff, setPayOff] = useState(user?.payOff ?? 0);
+    const [fixedIncome, setFixedIncome] = useState(user?.fixedIncome ?? 0);
+    const [currency, setCurrency] = useState(user?.currency ?? "$");
     
     const handleNameChange = (newName: string) => {
         setName(newName);
-    }
+    };
 
     const handleProfessionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProfession(e.target.value);
-    }
+    };
 
     const handleFixedIncomeChange = (newFixedIncome: number) => {
         setFixedIncome(newFixedIncome);
-    }
+    };
 
     const handlePayOffChange = (newPayOff: number) => {
         setPayOff(newPayOff);
-    }
+    };
 
     const handleCurrencyChange = (newCurrency: string) => {
         setCurrency(newCurrency);
-    }
+    };
 
     return (
         <section className="flex h-full w-full p-8 py-14 gap-4">
@@ -72,7 +65,7 @@ export default function ConfigProfile({ session }: { session: User }) {
                         placeholder="Profession" 
                     />
                     <Input 
-                        className="w-10 text-[var(--text-light)]"
+                        className="w-full text-[var(--text-light)]"
                         type="number" 
                         value={payOff.toString()} 
                         onChange={(e) => handlePayOffChange(Number(e.target.value))} 
@@ -82,7 +75,7 @@ export default function ConfigProfile({ session }: { session: User }) {
                         <Input 
                             type="number" 
                             value={fixedIncome.toString()} 
-                            onChange={(e) => handleFixedIncomeChange(Number(e.  target.value))} 
+                            onChange={(e) => handleFixedIncomeChange(Number(e.target.value))} 
                             placeholder="Fixed Income" 
                         />
                         <SelectComponent 
@@ -102,13 +95,13 @@ export default function ConfigProfile({ session }: { session: User }) {
                 <div className="flex flex-col justify-center items-center">
                     <div className="relative transition-all">
                         <Avatar src={image} className="w-36 h-36 relative z-0" />
-                        <Button className="absolute bottom-0 right-0 hover:bg-[var(--veu)] w-10 h-10 z-10" variant="primary">
+                        <Button className="absolute bottom-0 right-0 w-10 h-10 z-10 hover:bg-[var(--veu)]" variant="primary">
                             <i className="bi bi-pencil text-transparent hover:text-[var(--text)]"></i>
                         </Button>
                     </div>
                     <div className="flex flex-col items-center justify-center">
                         <TitleEdit initialValue={name} onChange={handleNameChange} />
-                        <Input className="border-none text-[var(--text-light)] m-0" value={session.email} readOnly />
+                        <Input className="border-none text-[var(--text-light)] m-0 " value={email} readOnly />
                     </div>
                 </div>
                 <div className="flex text-zinc-500">

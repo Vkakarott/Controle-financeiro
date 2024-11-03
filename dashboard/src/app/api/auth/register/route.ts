@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
 
     try {
         const body = await request.json();
+        console.log("body: ", body);
         const { name, email, password } = body;
 
         if (!name || !email || !password) {
@@ -49,6 +50,7 @@ export async function POST(request: NextRequest) {
             { status: 201 }
         );
     } catch (error) {
+        console.error("error: ", error);
         return NextResponse.json(
             { message: "Something went wrong. Please try again" },
             { status: 500 }
