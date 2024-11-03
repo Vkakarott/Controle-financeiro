@@ -6,7 +6,7 @@ interface AvatarProps {
 }
 
 export default function Avatar({ src, className }: AvatarProps) {
-    const defaultSrc = "/avatar.jpeg"; 
+    const defaultSrc = "/defaultAvatar.jpg";
 
     return (
         <div className="flex">
