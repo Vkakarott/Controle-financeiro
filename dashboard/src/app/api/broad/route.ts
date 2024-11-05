@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
                 }
                 chartData[transactionMonth].balance += chartData[transactionMonth].incomes - chartData[transactionMonth].expenses;
             }
-        })
+        });
     
         return NextResponse.json(chartData, { status: 200 });
       } catch (error) {

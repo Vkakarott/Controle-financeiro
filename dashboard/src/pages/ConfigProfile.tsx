@@ -9,6 +9,7 @@ import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import TitleEdit from "@/components/TitleEdit";
 import { ModeToggle } from "@/components/ToggleTheme";
+import BugReportForm from "@/components/BugReportForm";
 import { SelectComponent } from "@/components/SelectComponent";
 
 import { useUser } from "@/context/UserContext";
@@ -36,6 +37,7 @@ export default function ConfigProfile() {
     const [currency, setCurrency] = useState(user?.currency ?? "$");
     const [profession, setProfession] = useState(user?.profession ?? "");
     const [fixedIncome, setFixedIncome] = useState(user?.fixedIncome ?? 0);
+    const [modal, setModal] = useState(false);
     
     const handleNameChange = (newName: string) => {
             setName(newName);
@@ -160,16 +162,21 @@ export default function ConfigProfile() {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-end justify-end p-5">
-                    { change && (
-                        <button 
-                            className="flex bg-[var(--primary-color)] px-3 py-1 rounded text-[var(--text-inverse)] font-medium"
-                            disabled={isSaving} 
-                            onClick={saveChanges}
-                        >
-                        Salvar
+                <div className="flex items-end justify-between p-5">
+                    <button onClick={() => setModal(true)} className="text-zinc-500">
+                        <i className="bi bi-exclamation-circle"></i>
                     </button>
-                    )}
+                    <div className="flex">
+                        { change && (
+                            <button 
+                                className="flex bg-[var(--primary-color)] px-3 py-1 rounded text-[var(--text-inverse)] font-medium"
+                                disabled={isSaving} 
+                                onClick={saveChanges}
+                            >
+                            Salvar
+                        </button>
+                        )}
+                    </div>
                 </div>
             </section>
 
@@ -196,6 +203,17 @@ export default function ConfigProfile() {
                     &copy; Vk Dev
                 </div>
             </section>
+
+            { modal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center transition duration-300 ease-in-out transform">
+                    <div className="bg-[var(--backpage)] p-5 rounded-lg">
+                        <button onClick={() => setModal(false)} className="flex text-zinc-500 p-2 rounded-lg m-auto mr-0">
+                            <i className="bi bi-x-lg"></i>
+                        </button>
+                        <BugReportForm closeModal={() => setModal(false)} />
+                    </div>
+                </div>
+            )}
         </main>
     );
 }
