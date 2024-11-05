@@ -1,5 +1,6 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import Loading from "./Loading";
 
 export default function Calendar() {
     const [date, setDate] = useState<Date | null>(null);
@@ -8,13 +9,9 @@ export default function Calendar() {
         setDate(new Date());
     }, []);
 
-    if (!date) {
-        return <div className="flex w-[265px] h-[200px] mx-1 px-1 mb-3 rounded-2xl bg-[var(--calendar)] items-center justify-center">
-            <Loading />
-        </div>;
-    }
+    if (!date) return null;
 
-    const month_name = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][date.getMonth()];
+    const month_name = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Aug", "Set", "Out", "Nov", "Dez"][date.getMonth()];
     const day = date.getDate();
     const first_day = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     const last_day = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -26,13 +23,13 @@ export default function Calendar() {
             </h1>
             <div>
                 <ul className="flex text-sm font-medium items-center justify-between text-[var(--text-light)]">
-                    <li>Sun</li>
-                    <li>Mon</li>
-                    <li>Tue</li>
-                    <li>Wed</li>
-                    <li>Thu</li>
-                    <li>Fri</li>
-                    <li>Sat</li>
+                    <li>Dom</li>
+                    <li>Seg</li>
+                    <li>Ter</li>
+                    <li>Qua</li>
+                    <li>Qui</li>
+                    <li>Sex</li>
+                    <li>Sab</li>
                 </ul>
                 <ul className="flex flex-wrap w-full">
                     {[...Array(first_day).keys()].map((emptyDay) => (

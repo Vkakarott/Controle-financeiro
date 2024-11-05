@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent 
-} from "@/components/ui/chart";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const chartConfig = {
     food: { color: "var(--chart-1)" },
@@ -15,16 +14,37 @@ const chartConfig = {
     others: { color: "var(--chart-1)" }
 } satisfies ChartConfig
 
-interface ChartData {
+interface TrackingProps {
+    email: string;
+}
+
+interface Labels {
     label: string;
     value: number;
 }
 
-interface ChartTrackingProps {
-    chartData: ChartData[];
-}
+export default function Tracking({ email }: TrackingProps) {
+    const [chartData, setChartData] = useState<Labels[]>([]);
 
-export default function Tracking({ chartData }: ChartTrackingProps) {
+    useEffect(() => {
+        const fetchUserData = async () => {
+          try {
+            const response = await fetch(`/api/tracking?email=${email}`);
+            if (!response.ok) {
+              throw new Error('Failed to fetch user data');
+            }
+            const data = await response.json();
+            setChartData(data);
+          } catch (err) {
+            setChartData([]);
+          }
+        };
+    
+        if (email) {
+          fetchUserData();
+        }
+    }, [email]);
+
     return (
         <div className="flex justify-center items-center h-56 rounded-3xl col-start-5 col-end-7 row-start-3 row-end-5 bg-[var(--cards)] border-[var(--zinc)] border shadow-md">
             <Card className="w-full h-full bg-transparent rounded-2xl border-none">

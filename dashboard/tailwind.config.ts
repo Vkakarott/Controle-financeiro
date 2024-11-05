@@ -52,7 +52,7 @@ const config: Config = {
   			}
   		},
   		screens: {
-  			xl: '1230px'
+  			xl: '1240px'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

@@ -12,44 +12,20 @@ datasource db {
 
 model User {
   id            String          @id @default(cuid())
-  name          String          @unique
+  name          String          
   email         String          @unique
   password      String
-  emailVerified DateTime?
   image         String?
   profession    String?
   fixedIncome   Float?
   payOff        Int?
   currency      String?
-  accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
   transactions  Transaction[]
   
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-}
- 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@unique([provider, providerAccountId])
 }
  
 model Session {

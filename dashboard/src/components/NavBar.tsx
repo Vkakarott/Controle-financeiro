@@ -8,10 +8,9 @@ import { PopoverInput } from "./NewInput";
 
 interface NavBarProps {
     onNavClick: (page: string) => void;
-    id: string;
 }
 
-export default function NavBar({ onNavClick, id }: NavBarProps) {
+export default function NavBar({ onNavClick }: NavBarProps) {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
     const togglePopUp = () => {
@@ -37,8 +36,7 @@ export default function NavBar({ onNavClick, id }: NavBarProps) {
                 <PopoverInput 
                     isOpen={isPopoverOpen} 
                     onclose={togglePopUp} 
-                    currency="US$"
-                    id={id}/>
+                />
             )}
         </nav>
     )

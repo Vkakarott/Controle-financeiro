@@ -1,15 +1,22 @@
 "use client"
 
-import { useState, FormEvent } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
 export default function RegisterPage() {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const schema = yup.object().shape({
+        username: yup.string().required("Nome é obrigatório!"),
+        email: yup.string().email("Formato invalido!").required("Email é obrigatório!"),
+        password: yup.string().required("Defina uma senha!"),
+    });
+
+    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+
+    const onSubmit = async (data: { username: string; email: string; password: string; }) => {
         setError(null);
 
         try {
@@ -19,66 +26,68 @@ export default function RegisterPage() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    name: username,
-                    email,
-                    password,
+                    name: data.username,
+                    email: data.email,
+                    password: data.password,
                 }),
             });
 
-            const data = await response.json();
-            if (data.user) {
+            const result = await response.json();
+            if (result.user) {
                 window.location.href = "/signin";
             } else {
-                setError(data.message as string);
-                console.error(data.message);
+                setError(result.message);
+                console.error(result.message);
             }
         } catch (error) {
-            setError("Something wenr wrong. Please try again.");	
+            setError("Something went wrong. Please try again.");
         }
     };
 
     return (
-        <div className="flex flex-col w-96 h-96 items-center justify-center rounded-3xl border border-[var(--zinc)] shadow-md p-5 bg-[var(--background1)]">
-            <h1 className="text-2xl mb-7 font-semibold">Register</h1>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <main className="flex flex-col  items-center justify-center rounded-3xl border border-[var(--zinc)] shadow-md px-24 py-12 bg-[var(--background1)]">
+            <h1 className="text-2xl mb-7 font-semibold">Cadastre-se</h1>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-0">
                 <input 
                     type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Nome"
+                    {...register("username")} 
                     className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md"
-                    required 
                 />
+                {errors.username && <p className="text-[var(--text-error)] text-xs">{errors.username.message}</p>}
+
                 <input 
                     type="email"
                     placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md"
-                    required 
-                /><input 
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md"
-                required 
+                    {...register("email")}
+                    className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md mt-4"
                 />
-                {error && <p className="text-[var(--text-error)]">{error}</p>}
+                {errors.email && <p className="text-[var(--text-error)] text-xs">{errors.email.message}</p>}
+
+                <input 
+                    type="password"
+                    placeholder="Senha"
+                    {...register("password")} 
+                    className="px-4 py-2 bg-transparent border border-[var(--zinc)] rounded-md shadow-md mt-4"
+                />
+                {errors.password && <p className="text-[var(--text-error)] text-xs">{errors.password.message}</p>}
+
+                {error && <p className="text-[var(--text-error)] text-xs">{error}</p>} 
+                
                 <button
                     type="submit" 
-                    className="py-1 text-[var(--zinc)] bg-[var(--primary-color)] rounded"
+                    className="py-1 text-[var(--zinc)] bg-[var(--primary-color)] rounded my-4"
                 >
-                    Register
+                    Cadastre-se
                 </button>
                 <button
                     type="button"
                     className="flex text-nowrap w-min m-auto text-sm text-[var(--text-button)]"
                     onClick={() => window.location.href = '/signin'}
                 >
-                    Sign In
+                    Entre
                 </button>
             </form>
-        </div>
-    )
+        </main>
+    );
 }

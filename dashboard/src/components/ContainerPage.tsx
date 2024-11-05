@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Home from "@/pages/Home";
 import ConfigProfile from "@/pages/ConfigProfile";
+import ErrorCard from "./ErrorCard";
 
 export interface ContainerPageProps {
     activePage: string;
@@ -17,7 +18,7 @@ export default function ContainerPage({ activePage }: ContainerPageProps) {
             page = <ConfigProfile />;
             break;
         default:
-            page = <div>No content available</div>
+            page = <ErrorCard error={ "Page not found" } />;
             break;
     }
 

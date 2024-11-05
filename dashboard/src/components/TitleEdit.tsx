@@ -13,12 +13,12 @@ export default function TitleEdit({ initialValue, onChange }: TitleEditProps) {
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            setIsEditable(false);
-            if (onChange) {
+            if (onChange && value !== initialValue) {
                 onChange(value);
             }
+            setIsEditable(false);
         }
-    }
+    };
 
     return (
         <div className="flex items-center mt-3">

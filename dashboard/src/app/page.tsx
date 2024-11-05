@@ -8,11 +8,10 @@ import Main from "@/components/Main";
 export default async function Page() {
   const session = await auth();
   if (!session) redirect("/api/auth/signin");
-  console.log("session :", session.user?.email);
 
   return(
     <UserProvider email={session.user?.email || ""}>
-      <Main session={session.user?.id || ""} />
+      <Main />
     </UserProvider>
   )
 }

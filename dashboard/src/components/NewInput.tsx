@@ -1,44 +1,68 @@
-import React, { ChangeEvent, useState, FormEvent } from "react";
+import React, { ChangeEvent, useState, FormEvent, useEffect } from "react";
 import { Popover, PopoverContent } from "@/components/ui/popover";
 import { SelectComponent } from "./SelectComponent";
+import { useUser } from "@/context/UserContext";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
 interface PopoverComponentProps {
     isOpen: boolean;
     onclose: () => void;
-    currency: string;
-    id: string;
 }
 
-const options = [
-    { label: "Electronics", value: "electronics" },
-    { label: "Drinks", value: "drinks" },
-    { label: "Food", value: "food" },
-    { label: "Clothes", value: "clothes" },
-    { label: "Leisure", value: "leisure" },
-    { label: "Others", value: "others" },
+interface FormData {
+    transactionType: string;
+    amount: number;
+    label: string;
+}
+
+const optionsExpenses = [
+    { label: "Electronicos", value: "electronicos" },
+    { label: "Bebidas", value: "bebidas" },
+    { label: "Comidas", value: "comidas" },
+    { label: "Roupas", value: "roupas" },
+    { label: "Lazer", value: "lazer" },
+    { label: "Outros", value: "outros" },
 ];
 
-export function PopoverInput({ isOpen, onclose, currency, id }: PopoverComponentProps) {
-    const [selectOption, setSelectOption] = useState<string | "">("");
-    const [transactionType, setTransactionType] = useState<string | "">("");
-    const [amount, setAmount] = useState<number | "">("");
-    
-    const handleSelectChange = (value: string) => setSelectOption(value);
+const schema = yup.object().shape({
+    transactionType: yup.string().required("Tipo de transação nao definida."),
+    amount: yup.number().positive("Valor deve ser positivo.").required("Valor é obrigatório."),
+    label: yup.string().required("Tag é obrigatória."),
+});
 
-    const handleTransactionTypeChange = (event: ChangeEvent<HTMLInputElement>) => setTransactionType(event.target.value);
+export function PopoverInput({ isOpen, onclose }: PopoverComponentProps) {
+    const [selectLabel, setSelectLabel] = useState("");
+    const { user, updateUser } = useUser();
+    const currency = user?.currency ?? "";
+    const id = user?.id ?? "";
 
-    const handleSubmit = async (event: FormEvent) => {
-        event.preventDefault();
-
-        if (typeof amount !== 'number' || amount <= 0) {
-            console.error("Amount should be greater than zero");
-            return;
+    const { register, handleSubmit, setValue, reset, watch, formState: { errors } } = useForm<FormData>({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            transactionType: "",
+            amount: 0,
+            label: "",
         }
+    });
 
+    useEffect(() => {
+        if (!isOpen) {
+            reset();
+        }
+    }, [isOpen, reset]);
+    
+    const handleSelectChange = (value: string) => {
+        setSelectLabel(value);
+        setValue("label", value);
+    };
+
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
         const transactionData = {
-            type: transactionType,
-            value: amount,
-            label: selectOption,
+            type: data.transactionType,
+            value: data.amount,
+            label: selectLabel || data.label,
             date: new Date().toISOString(),
             userId: id,
         };
@@ -52,10 +76,10 @@ export function PopoverInput({ isOpen, onclose, currency, id }: PopoverComponent
 
             if (response.ok) {
                 console.log("Transaction added successfully!");
-                setTransactionType("");
-                setAmount("");
-                setSelectOption("");
+                const addedTransaction = await response.json();
+                updateUser({ transactions: [...(user?.transactions ?? []), addedTransaction] });
                 onclose();
+                reset();
             } else {
                 console.error("Failed to add transaction");
             }
@@ -72,37 +96,31 @@ export function PopoverInput({ isOpen, onclose, currency, id }: PopoverComponent
             }}
         >
             <PopoverContent className="w-80 absolute top-56 left-72 bg-[var(--cards)] rounded-lg border-[var(--border-card)] ">
-                <form className="flex flex-col gap-3 p-5 text-[var(--text)]" onSubmit={handleSubmit}>
+                <form className="flex flex-col gap-3 p-5 text-[var(--text)]" onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col">
-                        <h4 className="font-medium leading-none">New Transaction</h4>
-                        <p className="text-sm text-muted-foreground">
-                            Set new transaction.
-                        </p>
+                        <h4 className="font-medium leading-none">Nova Transação</h4>
+                        <p className="text-sm text-muted-foreground">Adicionar nova transação</p>
                     </div>
                     <div className="flex w-full items-center mt-3 gap-5">
                         <div className="flex items-center">
                             <input 
                                 type="radio" 
-                                name="transactionType" 
                                 value="income" 
                                 className="w-4 h-4 accent-accent-[var(--nav)]" 
                                 id="income"
-                                checked={transactionType === "income"}
-                                onChange={handleTransactionTypeChange}
+                                {...register("transactionType")}
                             />
-                            <label htmlFor="income" className="text-sm px-2 text-muted-foreground">Incomes</label>
+                            <label htmlFor="income" className="text-sm px-2 text-muted-foreground">Entrada</label>
                         </div>
                         <div className="flex items-center">
                             <input 
                                 type="radio" 
-                                name="transactionType" 
                                 value="expense" 
                                 className="w-4 h-4 accent-accent-[var(--nav)]" 
                                 id="expense"
-                                checked={transactionType === "expense"}
-                                onChange={handleTransactionTypeChange} 
+                                {...register("transactionType")} 
                             />
-                            <label htmlFor="expense" className="text-sm px-2 text-muted-foreground">Expenses</label>
+                            <label htmlFor="expense" className="text-sm px-2 text-muted-foreground">Saida</label>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -110,28 +128,38 @@ export function PopoverInput({ isOpen, onclose, currency, id }: PopoverComponent
                         <input 
                             type="number" 
                             className="w-full bg-transparent p-1 px-3 border border-[var(--zinc)] rounded" 
-                            onChange={({ target: { value } }) => setAmount(value ? Number(value) : "")}
-                            value={amount}
+                            {...register("amount")}
                         />
+                        {errors.amount && <p className="text-red-500">{errors.amount.message}</p>}
                     </div>
                     <div className="flex items-center gap-2">
-                        <SelectComponent 
-                            value={selectOption} 
-                            options={options} 
-                            onChange={ handleSelectChange } 
-                            placeholder="Tag"  
-                        />
+                        {watch("transactionType") === 'expense' ? (
+                            <SelectComponent 
+                                value={selectLabel} 
+                                options={optionsExpenses} 
+                                onChange={handleSelectChange} 
+                                placeholder="Tag"  
+                            />
+                        ) : (
+                            <input
+                                type="text"
+                                className="w-full ml-2 bg-transparent p-2 px-3 border text-sm border-[var(--zinc)] rounded"
+                                {...register("label")}
+                                placeholder="descrição"	
+                            />
+                        )}
+                        {errors.label && <p className="text-red-500">{errors.label.message}</p>}
                     </div>
                     <div className="flex w-full justify-end">
                         <button 
                             type="submit" 
                             className="w-24 font-bold text-sm p-2 mt-5 bg-[var(--text)] text-[var(--text-inverse)] rounded"
                         >
-                            Add
+                            Adicionar
                         </button>
                     </div>
                 </form>
             </PopoverContent>
         </Popover>
-    )
+    );
 }

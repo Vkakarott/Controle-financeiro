@@ -12,7 +12,7 @@ export function SelectComponent({ value, onChange, options, placeholder }: Selec
   return (
     <Select onValueChange={onChange} value={value}>
       <SelectTrigger className="w-[180px] border-[var(--zinc)]">
-        <SelectValue placeholder="Select tag" />
+        <SelectValue placeholder="Tag" />
       </SelectTrigger>
       <SelectContent className="bg-card text-[var(--text)] selection:border-white">
         <SelectGroup >

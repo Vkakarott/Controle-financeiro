@@ -11,6 +11,7 @@ interface UserContextValue {
   user: User | null;
   error: string | null;
   loading: boolean;
+  updateUser: (updatedUser: Partial<User>) => void;
 }
 
 interface Transaction {
@@ -23,6 +24,7 @@ interface Transaction {
 }
 
 interface User {
+  id: string;
   name: string;
   email: string;
   image: string;
@@ -36,7 +38,8 @@ interface User {
 const UserContext = createContext<UserContextValue>({
   user: null,
   error: null,
-  loading: true
+  loading: true,
+  updateUser: () => {},
 });
 
 export function UserProvider({ children, email }: UserProviderProps) {
@@ -48,7 +51,7 @@ export function UserProvider({ children, email }: UserProviderProps) {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`/api/auth/user/router?email=${email}`);
+        const response = await fetch(`/api/user?email=${email}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }
@@ -68,8 +71,21 @@ export function UserProvider({ children, email }: UserProviderProps) {
     }
   }, [email]);
 
+  const updateUser = (updatedUser: Partial<User> | { transactions: Transaction[] }) => {
+    setUser((prevUser) => {
+      if (!prevUser) return null;
+  
+      if ('transactions' in updatedUser) {
+        return { ...prevUser, transactions: updatedUser.transactions ?? [] }; 
+      }
+  
+      return { ...prevUser, ...updatedUser }; 
+    });
+  };
+  
+
   return (
-    <UserContext.Provider value={{ user, error, loading }}>
+    <UserContext.Provider value={{ user, error, loading, updateUser }}>
       {children}
     </UserContext.Provider>
   );

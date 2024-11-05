@@ -10,9 +10,11 @@ interface Transaction {
 }
 
 export default function List({ dataBase }: { dataBase: Transaction[] }) {
+    const limitedTransactions = [...dataBase].reverse().slice(0, 100);
+
     return (
-        <div className="flex flex-col items-center justify-between w-full h-28 overflow-y-auto scrollbar-hide">
-            {dataBase.map((transaction) => {
+        <div className="flex flex-col items-center justify-start w-full h-28 overflow-y-auto scrollbar-hide">
+            {limitedTransactions.map((transaction) => {
                 const formattedDate = new Date(transaction.date).toLocaleDateString("pt-BR", {
                     day: "2-digit",
                     month: "2-digit",

@@ -3,34 +3,26 @@ import Header from "@/components/Header";
 import PayDay from "@/components/PayDay";
 import SideBar from "@/components/SideBar";
 import Tracking from "@/components/Tracking";
-import Card from "@/components/OverviewContainer";   
+import { Overview } from "@/components/Chart";
+import LoadingCard from "@/components/LoadingCard";
 import Transactions from "@/components/Transactions";
+import ErrorCard from "@/components/ErrorCard";
 
 import { useUser } from "@/context/UserContext";
 
-const chartData = [
-    { "label": "electronics", "value": 200 },
-    { "label": "drinks", "value": 400 },
-    { "label": "food", "value": 300 },
-    { "label": "clothes", "value": 100 },
-    { "label": "leisure", "value": 500 },
-    { "label": "others", "value": 600 },
-];
-
 export default function Home() {
     const { user, loading, error } = useUser();
-    console.log("user", user);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    if (loading) return <LoadingCard/>;
+    if (error) return <ErrorCard error={error}/>;
 
     return (
         <section className="flex w-full h-full">
-            <section className="grid grid-cols-6 grid-rows-6 p-8 w-full h-full gap-7">
+            <section className="grid grid-cols-6 grid-rows-6 p-8 w-[800px] h-full gap-7">
                 <Header user={user}/>
-                <Card />
+                <Overview email={user?.email ?? ""}/>
                 <PayDay payOff={user?.payOff ?? 0}/>
-                <Tracking chartData={chartData}/>
+                <Tracking email={user?.email ?? ""}/>
                 <Transactions dataBase={user?.transactions ?? []}/>
             </section>
             <SideBar events={[]}/>
