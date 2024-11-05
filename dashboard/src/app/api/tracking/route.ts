@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
-    const labels = [ "electronics", "drinks", "food", "clothes", "leisure", "others"];
+    const labels = [ "electronicos", "transporte", "alimentação", "roupas" , "lazer", "outros" ];
 
     const chartData = labels.map((label) => ({
         label,

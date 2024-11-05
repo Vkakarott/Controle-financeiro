@@ -19,8 +19,8 @@ interface FormData {
 
 const optionsExpenses = [
     { label: "Electronicos", value: "electronicos" },
-    { label: "Bebidas", value: "bebidas" },
-    { label: "Comidas", value: "comidas" },
+    { label: "Transporte", value: "transporte" },
+    { label: "Alimentação", value: "alimentação" },
     { label: "Roupas", value: "roupas" },
     { label: "Lazer", value: "lazer" },
     { label: "Outros", value: "outros" },
