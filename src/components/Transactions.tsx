@@ -1,6 +1,5 @@
 import React from "react";
 import List from "./ListLatestTransactions";
-import { prisma } from "@/lib/prisma";
 
 interface dataBase {
     id: string;

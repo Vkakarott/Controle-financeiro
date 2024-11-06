@@ -5,7 +5,7 @@ interface ButtonProps {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     className?: string;
     ariaLabel?: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function Button({ children, onClick, className = "", ariaLabel = "", ...props }: ButtonProps) {

@@ -32,8 +32,6 @@ interface Month {
     balance: number;
 }
 
-const currentMonth = new Date().toLocaleString("default", { month: "long" });
-
 export function Overview({ email }: OverviewProps) {
     const [chartData, setChartData] = useState<Month[]>([]);
 

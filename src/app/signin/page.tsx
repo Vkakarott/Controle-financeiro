@@ -27,6 +27,7 @@ export default function SignInPage() {
 
     if (result && result.error) {
         setError("Credenciais Invalidas!" as string);
+        alert(error);
     } else {
         window.location.href = "/";
     }

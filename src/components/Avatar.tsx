@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface AvatarProps {
     src?: string;
@@ -10,12 +11,7 @@ export default function Avatar({ src, className }: AvatarProps) {
 
     return (
         <div className="flex">
-            <img 
-                className={`w-12 h-12 rounded-full ${className}`}
-                src={src || defaultSrc} 
-                alt={src ? "User Avatar" : "Default Avatar"} 
-                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => e.currentTarget.src = defaultSrc}
-            />
+            <Image src={src || defaultSrc} alt="Avatar" width={50} height={50} className={`rounded-full ${className}`} />
         </div>
     );
 }

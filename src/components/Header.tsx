@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface User {
     name: string;
@@ -17,9 +18,9 @@ export default function Header({ user }: HeaderProps) {
                 <h2 className="flex font-medium">{user?.name}</h2>
                 {
                 user?.image ? 
-                <img src={user?.image} alt="avatar" className="w-10 h-10 rounded-full ml-2" />
+                <Image src={user.image} alt="avatar" width={40} height={40} className="rounded-full ml-2" />
                 : 
-                <img src="/defaultAvatar.jpg" alt="avatar" className="w-10 h-10 rounded-full ml-2" />
+                <Image src="/defaultAvatar.jpg" alt="avatar" width={40} height={40} className="rounded-full ml-2" />
                 }
             </div>
         </div>
