@@ -11,7 +11,7 @@ export default function Avatar({ src, className }: AvatarProps) {
 
     return (
         <div className="flex">
-            <Image src={src || defaultSrc} alt="Avatar" width={50} height={50} className={`rounded-full ${className}`} />
+            <Image src={src || defaultSrc} alt="Avatar" width={140} height={140} className={`rounded-full ${className}`} />
         </div>
     );
 }
