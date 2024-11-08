@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
                 } else {
                     chartData[transactionMonth].expenses += value;
                 }
-                chartData[transactionMonth].balance += chartData[transactionMonth].incomes - chartData[transactionMonth].expenses;
+                chartData[transactionMonth].balance = chartData[transactionMonth].incomes - chartData[transactionMonth].expenses;
             }
         });
     
